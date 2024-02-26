@@ -1,8 +1,15 @@
+// Copyright (C) 2024 Daniel Dickson Dillimono.
+/*
+   Main map view
+*/
+
 import QtQuick 2.15
 import QtLocation
 import QtPositioning
 import QtQuick.Controls
 import QtQuick.Layouts
+import "../CustomWidgets"
+
 Rectangle {
     color: "#D9D9D9"
 
@@ -48,5 +55,13 @@ Rectangle {
             property: "zoomLevel"
         }
     }
-    MapNavigationControls{}
+
+    SearchBar{
+        id:searchbar
+    }
+
+    MapNavigationControls{
+        id:map_navigation_controls
+    }
+
 }
