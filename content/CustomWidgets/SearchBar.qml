@@ -5,6 +5,8 @@
 
 import QtQuick 2.15
 import QtQuick.Controls
+import Qt5Compat.GraphicalEffects
+import QtQuick.Studio.Effects
 
 TextField{
     anchors{
@@ -15,12 +17,18 @@ TextField{
     }
     placeholderText: "Search"
     placeholderTextColor: "#A2A2A2"
-    width: parent.width * 0.70
+    width: parent.width * 0.35
     height: parent.height * 0.05
 
 
     background: Rectangle{
-        color: "#323232"
+        color: "#D9D9D9"
         radius: 10
+        layer.enabled: true
+        layer.effect: DropShadowEffect{
+            color: "#2c000000"
+            opacity: 0.681
+        }
     }
+
 }

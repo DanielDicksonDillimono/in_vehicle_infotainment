@@ -8,6 +8,8 @@ import QtLocation
 import QtPositioning
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
+import QtQuick.Studio.Effects
 import "../CustomWidgets"
 
 Rectangle {
@@ -19,6 +21,7 @@ Rectangle {
         right: parent.right
         bottom: parent.bottom
     }
+
 
     Plugin{
         id: plugin
@@ -63,5 +66,6 @@ Rectangle {
     MapNavigationControls{
         id:map_navigation_controls
     }
+
 
 }
