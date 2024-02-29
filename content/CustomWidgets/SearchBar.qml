@@ -9,6 +9,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick.Studio.Effects
 
 TextField{
+
     anchors{
         top: parent.top
         left: parent.left
@@ -26,8 +27,12 @@ TextField{
         radius: 10
         layer.enabled: true
         layer.effect: DropShadowEffect{
-            color: "#2c000000"
+            color: "#28000000"
             opacity: 0.681
+            radius: 4
+            spread: -4
+            verticalOffset: 4
+            horizontalOffset: 0
         }
     }
 

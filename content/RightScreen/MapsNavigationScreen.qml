@@ -63,9 +63,11 @@ Rectangle {
         id:searchbar
     }
 
+    QuickDestinationNavBar{
+        id:quickDestinationNavBar
+    }
+
     MapNavigationControls{
         id:map_navigation_controls
     }
-
-
 }

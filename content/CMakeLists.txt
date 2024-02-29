@@ -22,6 +22,10 @@ qt6_add_qml_module(content
         assets/up-arrow.png
         assets/minus.png
         assets/add.png
+        assets/burger.png
+        assets/toilet.png
+        assets/gas-station.png
         QML_FILES RightScreen/MapNavigationControls.qml
+        QML_FILES CustomWidgets/QuickDestinationNavBar.qml
 
 )
