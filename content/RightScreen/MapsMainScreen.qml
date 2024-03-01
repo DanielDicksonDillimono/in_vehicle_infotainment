@@ -37,26 +37,12 @@ Rectangle {
         }
     }
 
-    Map{
-        id: map
+    MapView{
+        id: mapView
         anchors.fill: parent
-        plugin: plugin
-        center: positionSource.position.coordinate
-
-        zoomLevel: 14
-
-        DragHandler {
-            id: drag
-            target: map
-            onTranslationChanged: (delta) => map.pan(-delta.x, -delta.y)
-        }
-
-        WheelHandler {
-            id: wheel
-            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-            rotationScale: 1/120
-            property: "zoomLevel"
-        }
+        map.plugin: plugin
+        map.center: positionSource.position.coordinate
+        map.zoomLevel: 14
     }
 
     SearchBar{
@@ -67,7 +53,7 @@ Rectangle {
         id:quickDestinationNavBar
     }
 
-    MapNavigationControls{
-        id:map_navigation_controls
+    MapControlPanel{
+        id:map_control_panel
     }
 }

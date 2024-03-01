@@ -15,8 +15,8 @@ Window
 
     visible: true
     title: "in_vehicle_infotainment"
-    MapsNavigationScreen{
-        id:maps_naviation_screen
+    MapsMainScreen{
+        id:maps_main_screen
     }
     MediaPlaybackScreen{
         id:media_playback_screen

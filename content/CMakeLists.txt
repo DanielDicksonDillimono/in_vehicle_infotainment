@@ -11,7 +11,7 @@ qt6_add_qml_module(content
 
     RESOURCES
         fonts/fonts.txt
-        QML_FILES RightScreen/MapsNavigationScreen.qml
+        QML_FILES RightScreen/MapsMainScreen.qml
         QML_FILES LeftScreen/MediaPlaybackScreen.qml
         QML_FILES CustomWidgets/SearchBar.qml
 
@@ -25,7 +25,7 @@ qt6_add_qml_module(content
         assets/burger.png
         assets/toilet.png
         assets/gas-station.png
-        QML_FILES RightScreen/MapNavigationControls.qml
+        QML_FILES RightScreen/MapControlPanel.qml
         QML_FILES CustomWidgets/QuickDestinationNavBar.qml
 
 )
