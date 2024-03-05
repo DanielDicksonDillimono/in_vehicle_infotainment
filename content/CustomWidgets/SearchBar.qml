@@ -36,4 +36,6 @@ TextField{
         }
     }
 
+    onEditingFinished: maps_controller.setSearchTerm(text)
+
 }

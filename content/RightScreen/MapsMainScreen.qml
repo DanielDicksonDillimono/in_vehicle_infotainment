@@ -22,7 +22,6 @@ Rectangle {
         bottom: parent.bottom
     }
 
-
     Plugin{
         id: plugin
         name: "osm"
@@ -32,8 +31,9 @@ Rectangle {
 
     PositionSource {
         id: positionSource
+        active: true
         onPositionChanged: {
-           map.center = position.coordinate
+           mapView.map.center = position.coordinate
         }
     }
 
@@ -43,6 +43,36 @@ Rectangle {
         map.plugin: plugin
         map.center: positionSource.position.coordinate
         map.zoomLevel: 14
+
+        MapItemView
+        {
+            model: searchModel
+            parent: mapView.map
+            delegate: MapQuickItem
+            {
+                coordinate: place.location.coordinate
+
+                anchorPoint.x: makerImage.width * 0.5
+                anchorPoint.y: makerImage.height
+
+                sourceItem: Image {
+                    id: makerImage
+                    source: "../assets/location-pin.png"
+                    sourceSize{
+                        width: 24
+                        height: 24
+                    }
+                }
+            }
+        }
+    }
+
+    PlaceSearchModel{
+        id: searchModel
+        plugin: plugin
+        searchTerm: maps_controller.searchTerm
+        searchArea: QtPositioning.circle(positionSource.position.coordinate, 1000)
+        Component.onCompleted: update()
     }
 
     SearchBar{
@@ -56,4 +86,12 @@ Rectangle {
     MapControlPanel{
         id:map_control_panel
     }
+
+    // Button
+    // {
+    //     anchors.centerIn: parent
+    //     text: maps_controller.searchTerm
+    //     onClicked: maps_controller.searchTerm === "new" ? maps_controller.setSearchTerm("old") : maps_controller.setSearchTerm("new")
+    // }
+
 }

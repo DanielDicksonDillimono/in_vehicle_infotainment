@@ -14,8 +14,9 @@ if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
 endif()
 
 qt_add_executable(in_vehicle_infotainmentApp src/main.cpp
-    appmanager.h appmanager.cpp
     src/controllers/mapscontroller.h src/controllers/mapscontroller.cpp
+
+
 
 
 )

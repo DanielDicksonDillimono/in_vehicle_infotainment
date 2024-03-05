@@ -8,7 +8,7 @@
 #include "app_environment.h"
 #include "import_qml_components_plugins.h"
 #include "import_qml_plugins.h"
-#include "appmanager.h"
+#include "src/controllers/mapscontroller.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,9 +16,11 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    AppManager app_manager;
+    MapsController m_maps_controller;
 
     QQmlApplicationEngine engine;
+    QQmlContext * root_context = engine.rootContext();
+    root_context->setContextProperty("maps_controller", &m_maps_controller);
     const QUrl url(u"qrc:/qt/qml/Main/main.qml"_qs);
     QObject::connect(
         &engine,
@@ -35,12 +37,10 @@ int main(int argc, char *argv[])
 
     engine.load(url);
 
-    QQmlContext *root_context = engine.rootContext();
-    root_context->setContextProperty("app_manager", &app_manager);
-
     if (engine.rootObjects().isEmpty()) {
         return -1;
     }
+
 
     return app.exec();
 }
