@@ -30,7 +30,7 @@ Item{
             RoundButton{
                 id: panUpButton
                 Layout.alignment: Qt.AlignCenter
-                radius: 0
+                radius: 2
                 icon.source: "qrc:/qt/qml/content/assets/up-arrow.png"
                 height: parent.height / 3
                 width: parent.width / 2
@@ -40,13 +40,13 @@ Item{
                 height: parent.height / 3
                 RoundButton{
                     id: panLeftButton
-                    radius: 0
+                    radius: 2
                     icon.source: "qrc:/qt/qml/content/assets/left-arrow.png"
                     onClicked: {    mapView.map.pan(-10,0)     }
                 }
                 RoundButton{
                     id: panRightButton
-                    radius: 0
+                    radius: 2
                     icon.source: "qrc:/qt/qml/content/assets/right-arrow.png"
                     onClicked: {    mapView.map.pan(10,0)     }
                 }
@@ -54,7 +54,7 @@ Item{
             RoundButton{
                 id: panDownButton
                 Layout.alignment: Qt.AlignCenter
-                radius: 0
+                radius: 2
                 icon.source: "qrc:/qt/qml/content/assets/down-arrow.png"
                 height: parent.height / 3
                 width: parent.width / 2
@@ -65,7 +65,7 @@ Item{
            RoundButton{
                id: zoomInButton
                Layout.alignment: Qt.AlignCenter
-               radius: 0
+               radius: 2
                icon.source: "qrc:/qt/qml/content/assets/add.png"
                height: parent.height / 3
                width: parent.width / 2
@@ -74,7 +74,7 @@ Item{
            RoundButton{
                id: zoomOutButton
                Layout.alignment: Qt.AlignCenter
-               radius: 0
+               radius: 2
                icon.source: "qrc:/qt/qml/content/assets/minus.png"
                height: parent.height / 3
                width: parent.width / 2

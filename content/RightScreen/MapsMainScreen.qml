@@ -33,7 +33,9 @@ Rectangle {
         id: positionSource
         active: true
         onPositionChanged: {
-           mapView.map.center = position.coordinate
+            //only center map on device location if the user did not search for anything
+            if(geoCodeModel.status !== GeocodeModel.Ready || maps_controller.searchTerm === "")
+                mapView.map.center = positionSource.position.coordinate
         }
     }
 
@@ -41,11 +43,35 @@ Rectangle {
         id: mapView
         anchors.fill: parent
         map.plugin: plugin
-        map.center: positionSource.position.coordinate
         map.zoomLevel: 14
 
+        //User location marker
         MapItemView
         {
+            id: userLocationItem
+            model: positionSource
+            parent: mapView.map
+            delegate: MapQuickItem
+            {
+                coordinate: positionSource.position.coordinate
+                anchorPoint.x: userLocationImage.width * 0.5
+                anchorPoint.y: userLocationImage.height
+
+                sourceItem: Image {
+                    id: userLocationImage
+                    source: "../assets/car.png"
+                    sourceSize{
+                        width: 30
+                        height: 30
+                    }
+                }
+            }
+        }
+
+        //Search result marker(s)
+        MapItemView
+        {
+            id: mapItemView
             model: searchModel
             parent: mapView.map
             delegate: MapQuickItem
@@ -59,8 +85,8 @@ Rectangle {
                     id: makerImage
                     source: "../assets/location-pin.png"
                     sourceSize{
-                        width: 24
-                        height: 24
+                        width: 30
+                        height: 30
                     }
                 }
             }
@@ -71,8 +97,25 @@ Rectangle {
         id: searchModel
         plugin: plugin
         searchTerm: maps_controller.searchTerm
-        searchArea: QtPositioning.circle(positionSource.position.coordinate, 1000)
+        searchArea: QtPositioning.circle(positionSource.position.coordinate, 1000000)
         Component.onCompleted: update()
+        onSearchTermChanged:{
+            update()
+        }
+    }
+
+    GeocodeModel{
+        id: geoCodeModel
+        plugin: plugin
+        query: maps_controller.searchTerm
+        autoUpdate: true
+        onLocationsChanged: {
+
+            //This signal is triggered when the user's search query is valid. Therefore center the map around the first element in the search result: get(0).lat and get(0).long
+            if(status === GeocodeModel.Ready){
+                mapView.map.center = QtPositioning.coordinate(geoCodeModel.get(0).coordinate.latitude, geoCodeModel.get(0).coordinate.longitude)
+            }
+        }
     }
 
     SearchBar{
@@ -86,12 +129,5 @@ Rectangle {
     MapControlPanel{
         id:map_control_panel
     }
-
-    // Button
-    // {
-    //     anchors.centerIn: parent
-    //     text: maps_controller.searchTerm
-    //     onClicked: maps_controller.searchTerm === "new" ? maps_controller.setSearchTerm("old") : maps_controller.setSearchTerm("new")
-    // }
 
 }

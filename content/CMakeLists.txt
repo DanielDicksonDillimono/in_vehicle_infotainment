@@ -27,6 +27,7 @@ qt6_add_qml_module(content
         assets/gas-station.png
         assets/location-pin.png
         assets/car.png
+        assets/search.png
         QML_FILES RightScreen/MapControlPanel.qml
         QML_FILES CustomWidgets/QuickDestinationNavBar.qml
         SOURCES
