@@ -45,6 +45,7 @@ ToolBar {
                     height: 24
                 }
             }
+            onClicked: {maps_controller.setSearchTerm("toilet")}
         }
 
         ToolSeparator{
@@ -64,6 +65,7 @@ ToolBar {
                     height: 24
                 }
             }
+            onClicked: {maps_controller.setSearchTerm("food")}
         }
 
         ToolSeparator{
@@ -77,12 +79,12 @@ ToolBar {
             background: Image {
                 id: gas_station_image
                 source: "../assets/gas-station.png"
-
                 sourceSize{
                     width: 24
                     height: 24
                 }
             }
+            onClicked: {maps_controller.setSearchTerm("gas station")}
         }
         // Image {
         //     id: restRoomButton

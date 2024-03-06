@@ -43,7 +43,7 @@ Rectangle {
         id: mapView
         anchors.fill: parent
         map.plugin: plugin
-        map.zoomLevel: 14
+        map.zoomLevel: maps_controller.mapZoomLevel
 
         //User location marker
         MapItemView
@@ -109,6 +109,7 @@ Rectangle {
         plugin: plugin
         query: maps_controller.searchTerm
         autoUpdate: true
+        bounds: QtPositioning.circle(positionSource.position.coordinate, 1000000)
         onLocationsChanged: {
 
             //This signal is triggered when the user's search query is valid. Therefore center the map around the first element in the search result: get(0).lat and get(0).long
