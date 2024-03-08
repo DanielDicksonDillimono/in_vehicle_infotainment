@@ -8,10 +8,13 @@ class MapsController : public QObject
     Q_OBJECT
     Q_PROPERTY(QString searchTerm READ searchTerm WRITE setSearchTerm NOTIFY searchTermChanged FINAL)
     Q_PROPERTY(double_t mapZoomLevel READ mapZoomLevel WRITE setMapZoomLevel NOTIFY mapZoomLevelChanged FINAL)
+
 public:
     explicit MapsController(QObject *parent = nullptr);
     QString searchTerm () const;
     double_t mapZoomLevel () const;
+    bool centerOnFirstSearchResult() const;
+    Q_INVOKABLE void setCenterOnResult(const bool);
 
 signals:
     void searchTermChanged();
@@ -24,6 +27,7 @@ public slots:
 private:
     QString m_search_term;
     double_t m_map_zoom_level;
+    bool m_center_on_first_search_result;
 };
 
 #endif // MAPSCONTROLLER_H

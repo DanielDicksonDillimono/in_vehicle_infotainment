@@ -75,7 +75,10 @@ Rectangle{
             color: "transparent"
         }
 
-        onEditingFinished: maps_controller.setSearchTerm(text)
+        onEditingFinished:{
+            maps_controller.setCenterOnResult(true);
+            maps_controller.setSearchTerm(text)
+        }
 
     }
 

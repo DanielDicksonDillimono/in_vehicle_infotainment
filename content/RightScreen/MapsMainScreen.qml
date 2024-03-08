@@ -113,7 +113,7 @@ Rectangle {
         onLocationsChanged: {
 
             //This signal is triggered when the user's search query is valid. Therefore center the map around the first element in the search result: get(0).lat and get(0).long
-            if(status === GeocodeModel.Ready){
+            if(status === GeocodeModel.Ready && maps_controller.centerOnFirstSearchResult){
                 mapView.map.center = QtPositioning.coordinate(geoCodeModel.get(0).coordinate.latitude, geoCodeModel.get(0).coordinate.longitude)
             }
         }

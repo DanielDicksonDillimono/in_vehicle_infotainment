@@ -1,3 +1,7 @@
+// Copyright (C) 2024 Daniel Dickson Dillimono.
+/*
+    QuickDestinationNavBar: Enables users to show results of preset queries.
+*/
 import QtQuick 2.15
 import QtQuick.Controls
 import QtQuick.Studio.Effects
@@ -13,12 +17,12 @@ ToolBar {
 
     height: parent.height * 0.30
     width: parent.width * 0.05
-    // radius: 10
-    // color: "#D9D9D9"
+
     background: Rectangle{
         radius: 10
         color: "#D9D9D9"
     }
+
     layer.enabled: true
     layer.effect: DropShadowEffect{
         color: "#28000000"
@@ -45,7 +49,10 @@ ToolBar {
                     height: 24
                 }
             }
-            onClicked: {maps_controller.setSearchTerm("toilet")}
+            onClicked: {
+                maps_controller.setCenterOnResult(false)
+                maps_controller.setSearchTerm("toilet")
+            }
         }
 
         ToolSeparator{
@@ -65,7 +72,10 @@ ToolBar {
                     height: 24
                 }
             }
-            onClicked: {maps_controller.setSearchTerm("food")}
+            onClicked:{
+                maps_controller.setCenterOnResult(false)
+                maps_controller.setSearchTerm("food")
+            }
         }
 
         ToolSeparator{
@@ -84,49 +94,10 @@ ToolBar {
                     height: 24
                 }
             }
-            onClicked: {maps_controller.setSearchTerm("gas station")}
+            onClicked:{
+                maps_controller.setCenterOnResult(false)
+                maps_controller.setSearchTerm("gas station")
+            }
         }
-        // Image {
-        //     id: restRoomButton
-        //     source: "../assets/toilet.png"
-        //     Layout.alignment: Qt.AlignCenter
-        //     sourceSize{
-        //         width: 24
-        //         height: 24
-        //     }
-        //     MouseArea{
-        //         anchors.fill: parent
-        //         hoverEnabled: true
-        //         onClicked: (mousebutton) => {}
-        //     }
-        // }
-        // Image {
-        //     id: foodButton
-        //     source: "../assets/burger.png"
-        //     Layout.alignment: Qt.AlignCenter
-        //     sourceSize{
-        //         width: 24
-        //         height: 24
-        //     }
-        //     MouseArea{
-        //         anchors.fill: parent
-        //         hoverEnabled: true
-        //         onClicked: (mousebutton) => {}
-        //     }
-        // }
-        // Image {
-        //     id: gasStationButton
-        //     source: "../assets/gas-station.png"
-        //     Layout.alignment: Qt.AlignCenter
-        //     sourceSize{
-        //         width: 24
-        //         height: 24
-        //     }
-        //     MouseArea{
-        //         anchors.fill: parent
-        //         hoverEnabled: true
-        //         onClicked: (mousebutton) => {}
-        //     }
-        // }
     }
 }

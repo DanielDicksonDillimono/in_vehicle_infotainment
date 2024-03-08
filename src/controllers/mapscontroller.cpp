@@ -38,3 +38,7 @@ void MapsController::setSearchTerm(const QString &new_term)
     }
 }
 
+void MapsController::setCenterOnResult(const bool center_result)
+{
+    m_center_on_first_search_result = center_result;
+}
