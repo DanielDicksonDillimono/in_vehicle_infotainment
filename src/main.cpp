@@ -9,6 +9,7 @@
 #include "import_qml_components_plugins.h"
 #include "import_qml_plugins.h"
 #include "src/controllers/mapscontroller.h"
+#include "src/Models/searchmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     MapsController m_maps_controller;
+    qmlRegisterType<SearchModel>("Search_Controller", 1, 0, "Search_Model");
 
     QQmlApplicationEngine engine;
     QQmlContext * root_context = engine.rootContext();

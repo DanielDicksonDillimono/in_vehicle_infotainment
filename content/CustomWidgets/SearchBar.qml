@@ -76,8 +76,8 @@ Rectangle{
         }
 
         onEditingFinished:{
-            maps_controller.setCenterOnResult(true);
-            maps_controller.setSearchTerm(text)
+            //maps_controller.setCenterOnResult(true);
+            maps_controller.searchForPlace(text)
         }
 
     }

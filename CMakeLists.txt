@@ -7,18 +7,19 @@ project(in_vehicle_infotainmentApp LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
+#find_package(X11 REQUIRED)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick Positioning Location)
 
 if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
 endif()
 
+add_subdirectory(src/Models)
+
 qt_add_executable(in_vehicle_infotainmentApp src/main.cpp
     src/controllers/mapscontroller.h src/controllers/mapscontroller.cpp
-
-
-
-
+    src/Models/searchmodel.h src/Models/searchmodel.cpp
+    src/Models/CMakeLists.txt
 )
 
 qt_add_resources(in_vehicle_infotainmentApp "configuration"
@@ -27,11 +28,13 @@ qt_add_resources(in_vehicle_infotainmentApp "configuration"
         qtquickcontrols2.conf
 )
 
-target_link_libraries(in_vehicle_infotainmentApp PRIVATE
+target_link_libraries(in_vehicle_infotainmentApp PUBLIC
     Qt6::Core
     Qt6::Gui
     Qt6::Qml
     Qt6::Quick
+    Qt6::Positioning
+    Qt6::Location
 )
 
 if (BUILD_QDS_COMPONENTS)
@@ -39,6 +42,7 @@ if (BUILD_QDS_COMPONENTS)
 endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/qmlmodules)
+
 
 if (LINK_INSIGHT)
     include(${CMAKE_CURRENT_SOURCE_DIR}/insight)
