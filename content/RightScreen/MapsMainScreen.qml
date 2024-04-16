@@ -24,6 +24,11 @@ Rectangle {
         bottom: parent.bottom
     }
 
+    Connections{
+        target: maps_controller
+        onMapZoomLevelChanged: mapView.map.zoomLevel = maps_controller.mapZoomLevel
+    }
+
     Search_Model{
         id: searchModel
         controller: maps_controller
@@ -36,22 +41,18 @@ Rectangle {
         PluginParameter { name: "osm.mapping.highdpi_tiles"; value: true }
     }
 
-    // PositionSource {
-    //     id: positionSource
-    //     active: true
-    //     onPositionChanged: {
-    //         //only center map on device location if the user did not search for anything
-    //         if(geoCodeModel.status !== GeocodeModel.Ready || maps_controller.searchTerm === "")
-    //             mapView.map.center = positionSource.position.coordinate
-    //     }
-    // }
 
     MapView{
         id: mapView
         anchors.fill: parent
         map.plugin: plugin
         map.zoomLevel: maps_controller.mapZoomLevel
-        map.center: maps_controller.deviceLocation
+        map.center: maps_controller.mapCenter
+        map.onZoomLevelChanged: {
+            maps_controller.setMapZoomLevel(map.zoomLevel)
+            console.log("Zoom Level Changed")
+        }
+
         //User location marker
         MapItemView
         {

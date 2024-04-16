@@ -3,6 +3,8 @@
 #include <QGeoCircle>
 #include <QPlaceManager>
 #include <QPlace>
+#include <QGeoLocation>
+#include <QDebug>
 
 enum Quick_Destinations {};
 
@@ -15,6 +17,7 @@ MapsController::MapsController(QObject *parent)
 {
     initializeProvider();
     initializePositionSource();
+    connect(this, &MapsController::deviceLocationChanged, this, [=](){setMapCenter(m_device_location);}, Qt::SingleShotConnection);
     m_position_source.data();
 }
 
@@ -83,12 +86,6 @@ QGeoPositionInfoSource* MapsController::positionSource() const
     return m_position_source.data();
 }
 
-
-// void MapsController::setPositionSource(const QGeoPositionInfoSource*)
-// {
-//     emit positionSourceChanged();
-// }
-
 void MapsController::handlePositionUpdated(const QGeoPositionInfo &new_position_info)
 {
     setDeviceLocation(new_position_info.coordinate());
@@ -110,6 +107,17 @@ QGeoCoordinate MapsController::deviceLocation() const
     return m_device_location;
 }
 
+QGeoCoordinate MapsController::mapCenter() const
+{
+    return m_map_center;
+}
+
+void MapsController::setMapCenter(const QGeoCoordinate &new_center)
+{
+    m_map_center = new_center;
+    emit mapCenterChanged();
+}
+
 void MapsController::setSearchTerm(const QString &new_term)
 {
     if(m_search_term != new_term)
@@ -121,7 +129,7 @@ void MapsController::setSearchTerm(const QString &new_term)
 
 void MapsController::searchForPlace(const QString &search_term)
 {
-    m_place_search_result = {}; //empty results
+    m_place_search_result = {}; //clear initial results
 
     if(m_search_reply)
         m_search_reply->disconnect();
@@ -143,17 +151,35 @@ void MapsController::handlePlaceSearchReply()
         qDebug() << "SEARCH_REPLY_ERROR: " << m_search_reply->errorString();
         return;
     }
+    centerMapOnSearchResult();
+    emit placeResultsHandled();
+
+}
+
+void MapsController::centerMapOnSearchResult()
+{
+    qreal distance = 0.0;
+    QGeoCoordinate new_coordinate;
+
     for(const QPlaceSearchResult &result : m_search_reply->results())
     {
         if(result.type() == QPlaceSearchResult::PlaceResult)
         {
+
             QPlaceResult placeResult =result;
             m_place_search_result.append(placeResult.place());
+
+            qreal resultDistance = placeResult.distance();
+
+            if(resultDistance < distance || distance == 0.0)
+            {
+                distance = resultDistance;
+                new_coordinate = placeResult.place().location().coordinate();
+            }
         }
     }
-
-    emit placeResultsHandled();
-
+    setMapCenter(new_coordinate);
+    setMapZoomLevel(14);
 }
 
 const QList<QPlace>& MapsController::placeSearchResults() const
