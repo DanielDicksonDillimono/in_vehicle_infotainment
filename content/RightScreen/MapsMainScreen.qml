@@ -29,6 +29,12 @@ Rectangle {
         onMapZoomLevelChanged: mapView.map.zoomLevel = maps_controller.mapZoomLevel
     }
 
+    Connections{
+        target: searchModel
+        onResultsChanged: searchResultListView.visible = searchModel.rowCount() > 1
+    }
+
+
     Search_Model{
         id: searchModel
         controller: maps_controller
@@ -50,7 +56,6 @@ Rectangle {
         map.center: maps_controller.mapCenter
         map.onZoomLevelChanged: {
             maps_controller.setMapZoomLevel(map.zoomLevel)
-            console.log("Zoom Level Changed")
         }
 
         //User location marker
@@ -101,34 +106,14 @@ Rectangle {
         }
     }
 
-    // PlaceSearchModel{
-    //     id: searchModel
-    //     plugin: plugin
-    //     searchTerm: maps_controller.searchTerm
-    //     searchArea: QtPositioning.circle(maps_controller.positionSource.coordinate, 1000000)
-    //     Component.onCompleted: update()
-    //     onSearchTermChanged:{
-    //         update()
-    //     }
-    // }
-
-    // GeocodeModel{
-    //     id: geoCodeModel
-    //     plugin: plugin
-    //     query: maps_controller.searchTerm
-    //     autoUpdate: true
-    //     bounds: QtPositioning.circle(maps_controller.positionSource.coordinate, 1000000)
-    //     onLocationsChanged: {
-
-    //         //This signal is triggered when the user's search query is valid. Therefore center the map around the first element in the search result: get(0).lat and get(0).long
-    //         if(status === GeocodeModel.Ready && maps_controller.centerOnFirstSearchResult){
-    //             mapView.map.center = QtPositioning.coordinate(geoCodeModel.get(0).coordinate.latitude, geoCodeModel.get(0).coordinate.longitude)
-    //         }
-    //     }
-    // }
-
     SearchBar{
         id:searchbar
+        anchors{
+            top: parent.top
+            left: searchResultListView.visible ? searchResultListView.right : parent.left
+            topMargin: 10
+            leftMargin: 100
+        }
     }
 
     QuickDestinationNavBar{
@@ -139,4 +124,9 @@ Rectangle {
         id:map_control_panel
     }
 
+    SearchResultListView{
+        id: searchResultListView
+        visible: maps_controller.showSearchList
+        searchModel: searchModel
+    }
 }

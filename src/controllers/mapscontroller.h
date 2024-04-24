@@ -16,6 +16,8 @@ class MapsController : public QObject
     Q_PROPERTY(QGeoCoordinate deviceLocation READ deviceLocation WRITE setDeviceLocation NOTIFY deviceLocationChanged FINAL)
     Q_PROPERTY(QGeoCoordinate mapCenter READ mapCenter WRITE setMapCenter NOTIFY mapCenterChanged FINAL)
     Q_PROPERTY(QGeoPositionInfoSource* positionSource READ positionSource  NOTIFY positionSourceChanged FINAL)
+    Q_PROPERTY(bool showSearchList READ showSearchList WRITE setShowSearchList NOTIFY showSearchListChanged FINAL)
+
 
 public:
     explicit MapsController(QObject *parent = nullptr);
@@ -28,7 +30,9 @@ public:
 
     bool centerOnFirstSearchResult() const;
     const QList<QPlace>& placeSearchResults() const;
-    void setCenterOnResult(const bool);
+
+    bool showSearchList() const;
+  // Q_INVOKABLE void toggleShowSearchList();
 
 signals:
     void searchTermChanged();
@@ -37,6 +41,7 @@ signals:
     void deviceLocationChanged();
     void positionSourceChanged();
     void mapCenterChanged();
+    void showSearchListChanged();
 
 public slots:
     void setSearchTerm(const QString&);
@@ -44,6 +49,7 @@ public slots:
     void searchForPlace(const QString&);
     void setDeviceLocation(const QGeoCoordinate&);
     void setMapCenter(const QGeoCoordinate&);
+    void setShowSearchList(const bool&);
    // void setPositionSource(const QGeoPositionInfoSource*);
 
 private:
@@ -56,9 +62,10 @@ private:
     QSharedPointer<QPlaceSearchReply> m_search_reply;
     QGeoCoordinate m_device_location;
     QGeoCoordinate m_map_center;
-    QList<QPlace> m_place_search_result;
+    QList<QPlace> m_place_search_results;
 
     bool m_center_on_first_search_result;
+    bool m_show_search_list;
 
     void initializeProvider();
     void initializePositionSource();

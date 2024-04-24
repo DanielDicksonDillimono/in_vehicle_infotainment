@@ -28,9 +28,11 @@ qt6_add_qml_module(content
         assets/location-pin.png
         assets/car.png
         assets/search.png
+        assets/close.png
         QML_FILES RightScreen/MapControlPanel.qml
         QML_FILES CustomWidgets/QuickDestinationNavBar.qml
         SOURCES
         SOURCES
+        QML_FILES RightScreen/SearchResultListView.qml
 
 )

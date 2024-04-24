@@ -20,6 +20,9 @@ public:
     {
         TitleRole = Qt::UserRole,
         Coordinate = Qt::UserRole+2,
+        Street = Qt::UserRole+3,
+        StreetNumber = Qt::UserRole+4,
+        FullAddress = Qt::UserRole+5
     };
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -32,7 +35,6 @@ public:
 
     QList<QPlace> *results() const;
 
-    //void setResults(const QList<QPlace> &);
     void setResults();
     void setController(MapsController *);
 

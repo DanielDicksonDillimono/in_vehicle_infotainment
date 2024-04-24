@@ -14,6 +14,7 @@ MapsController::MapsController(QObject *parent)
     : QObject{parent}
     ,m_search_term("")
     ,m_map_zoom_level(14)
+    ,m_show_search_list(false)
 {
     initializeProvider();
     initializePositionSource();
@@ -38,11 +39,6 @@ void MapsController::setMapZoomLevel(const double_t &new_level)
         m_map_zoom_level = new_level;
         emit mapZoomLevelChanged();
     }
-}
-
-void MapsController::setCenterOnResult(const bool center_result)
-{
-    m_center_on_first_search_result = center_result;
 }
 
 bool MapsController::providerError(){
@@ -129,7 +125,7 @@ void MapsController::setSearchTerm(const QString &new_term)
 
 void MapsController::searchForPlace(const QString &search_term)
 {
-    m_place_search_result = {}; //clear initial results
+    m_place_search_results = {}; //clear initial results
 
     if(m_search_reply)
         m_search_reply->disconnect();
@@ -167,7 +163,7 @@ void MapsController::centerMapOnSearchResult()
         {
 
             QPlaceResult placeResult =result;
-            m_place_search_result.append(placeResult.place());
+            m_place_search_results.append(placeResult.place());
 
             qreal resultDistance = placeResult.distance();
 
@@ -178,11 +174,31 @@ void MapsController::centerMapOnSearchResult()
             }
         }
     }
+    setShowSearchList(m_place_search_results.size() > 1);
     setMapCenter(new_coordinate);
     setMapZoomLevel(14);
 }
 
 const QList<QPlace>& MapsController::placeSearchResults() const
 {
-    return m_place_search_result;
+    return m_place_search_results;
 }
+
+bool MapsController::showSearchList() const
+{
+    return m_show_search_list;
+}
+
+void MapsController::setShowSearchList(const bool & showList)
+{
+    if(m_show_search_list != showList)
+    {
+        m_show_search_list = showList;
+        emit showSearchListChanged();
+    }
+}
+
+// void MapsController::toggleShowSearchList()
+// {
+//     setS
+// }

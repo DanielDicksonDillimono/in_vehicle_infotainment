@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QGeoLocation>
 #include <QGeoCoordinate>
-//#include "../controllers/mapscontroller.h"
+#include <QGeoAddress>
 
 SearchModel::SearchModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -29,11 +29,30 @@ QVariant SearchModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
         case TitleRole:
-            return QVariant(place.name());
+            return QVariant(place.name()/*QStringLiteral("Place Name")*/);
         case Coordinate:
         {
             QVariant var;
             var.setValue(place.location().coordinate());
+            return var;
+        }
+        case Street:
+        {
+            QVariant var;
+            var.setValue(place.location().address().street());
+            return var;
+        }
+        case StreetNumber:
+        {
+            QVariant var;
+            var.setValue(place.location().address().streetNumber());
+            return var;
+        }
+        case FullAddress:
+        {
+            QVariant var;
+            QString fullAddress = place.location().address().street() + " " + place.location().address().streetNumber();
+            var.setValue(fullAddress);
             return var;
         }
         default:
@@ -55,6 +74,9 @@ QHash<int, QByteArray> SearchModel::roleNames() const
     QHash<int, QByteArray> names;
     names[TitleRole] = "title";
     names[Coordinate] = "coordinate";
+    names[Street] = "Street";
+    names[StreetNumber] = "StreetNumber";
+    names[FullAddress] = "fullAddress";
     return names;
 }
 

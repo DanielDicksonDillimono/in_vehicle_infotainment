@@ -10,12 +10,7 @@ import QtQuick.Studio.Effects
 
 
 Rectangle{
-    anchors{
-        top: parent.top
-        left: parent.left
-        topMargin: 10
-        leftMargin: 100
-    }
+
     width: parent.width * 0.35
     height: parent.height * 0.05
     color: "#D9D9D9"
