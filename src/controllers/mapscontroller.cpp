@@ -123,6 +123,16 @@ void MapsController::setSearchTerm(const QString &new_term)
     }
 }
 
+void MapsController::centerMapOnDeviceLocation()
+{
+    QGeoCoordinate current_device_location = deviceLocation();
+    if(m_map_center != current_device_location)
+    {
+        setMapCenter(current_device_location);
+        emit mapCenterChanged();
+    }
+}
+
 void MapsController::searchForPlace(const QString &search_term)
 {
     m_place_search_results = {}; //clear initial results
