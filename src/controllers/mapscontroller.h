@@ -50,6 +50,7 @@ public slots:
     void setDeviceLocation(const QGeoCoordinate&);
     void setMapCenter(const QGeoCoordinate&);
     void setShowSearchList(const bool&);
+    void centerMapOnDeviceLocation();
    // void setPositionSource(const QGeoPositionInfoSource*);
 
 private:

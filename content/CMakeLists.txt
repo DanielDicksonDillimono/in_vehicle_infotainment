@@ -29,6 +29,7 @@ qt6_add_qml_module(content
         assets/car.png
         assets/search.png
         assets/close.png
+        assets/arrow.png
         QML_FILES RightScreen/MapControlPanel.qml
         QML_FILES CustomWidgets/QuickDestinationNavBar.qml
         SOURCES

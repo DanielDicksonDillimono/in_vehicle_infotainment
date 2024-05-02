@@ -20,7 +20,6 @@ Item{
         anchors{
             right: parent.right
         }
-
         spacing: 5
         ColumnLayout{
             anchors{
@@ -79,6 +78,15 @@ Item{
                height: parent.height / 3
                width: parent.width / 2
                onClicked: {mapView.map.zoomLevel -= 1}
+           }
+           RoundButton{
+               id:centerOnDeviceButton
+               Layout.alignment: Qt.AlignCenter
+               radius: 2
+               icon.source: "qrc:/qt/qml/content/assets/arrow.png"
+               height: parent.height / 3
+               width: parent.width / 2
+               onClicked: {maps_controller.centerMapOnDeviceLocation()}
            }
        }
     }
