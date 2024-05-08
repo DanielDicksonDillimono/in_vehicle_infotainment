@@ -11,7 +11,6 @@
 class MapsController : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString searchTerm READ searchTerm WRITE setSearchTerm NOTIFY searchTermChanged FINAL)
     Q_PROPERTY(double_t mapZoomLevel READ mapZoomLevel WRITE setMapZoomLevel NOTIFY mapZoomLevelChanged FINAL)
     Q_PROPERTY(QGeoCoordinate deviceLocation READ deviceLocation WRITE setDeviceLocation NOTIFY deviceLocationChanged FINAL)
     Q_PROPERTY(QGeoCoordinate mapCenter READ mapCenter WRITE setMapCenter NOTIFY mapCenterChanged FINAL)
@@ -21,7 +20,6 @@ class MapsController : public QObject
 
 public:
     explicit MapsController(QObject *parent = nullptr);
-    QString searchTerm () const;
     double_t mapZoomLevel () const;
     QGeoCoordinate deviceLocation() const;
     QGeoCoordinate mapCenter() const;
@@ -32,10 +30,8 @@ public:
     const QList<QPlace>& placeSearchResults() const;
 
     bool showSearchList() const;
-  // Q_INVOKABLE void toggleShowSearchList();
 
 signals:
-    void searchTermChanged();
     void mapZoomLevelChanged();
     void placeResultsHandled();
     void deviceLocationChanged();
@@ -44,7 +40,6 @@ signals:
     void showSearchListChanged();
 
 public slots:
-    void setSearchTerm(const QString&);
     void setMapZoomLevel(const double_t&);
     void searchForPlace(const QString&);
     void setDeviceLocation(const QGeoCoordinate&);

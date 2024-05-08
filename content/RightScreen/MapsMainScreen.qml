@@ -12,7 +12,6 @@ import Qt5Compat.GraphicalEffects
 import QtQuick.Studio.Effects
 import "../CustomWidgets"
 import Search_Controller 1.0
-//import "Search_Contoller"
 
 Rectangle {
     color: "#D9D9D9"

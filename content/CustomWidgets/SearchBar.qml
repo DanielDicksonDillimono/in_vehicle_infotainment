@@ -49,9 +49,6 @@ Rectangle{
             left: search_icon_image.right
         }
 
-        // placeholderText: "Search"
-        // placeholderTextColor: "#A2A2A2"
-
         PlaceholderText{
             id: searchbar_placeholder_text
             anchors.verticalCenter: parent.verticalCenter
@@ -71,7 +68,6 @@ Rectangle{
         }
 
         onEditingFinished:{
-            //maps_controller.setCenterOnResult(true);
             maps_controller.searchForPlace(text)
         }
 

@@ -50,8 +50,7 @@ ToolBar {
                 }
             }
             onClicked: {
-                maps_controller.setCenterOnResult(false)
-                maps_controller.setSearchTerm("toilet")
+                maps_controller.searchForPlace("toilet")
             }
         }
 
@@ -73,8 +72,7 @@ ToolBar {
                 }
             }
             onClicked:{
-                maps_controller.setCenterOnResult(false)
-                maps_controller.setSearchTerm("food")
+                maps_controller.searchForPlace("food")
             }
         }
 
@@ -95,8 +93,7 @@ ToolBar {
                 }
             }
             onClicked:{
-                maps_controller.setCenterOnResult(false)
-                maps_controller.setSearchTerm("gas station")
+                maps_controller.searchForPlace("gas station")
             }
         }
     }

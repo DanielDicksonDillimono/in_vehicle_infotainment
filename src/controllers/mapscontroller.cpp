@@ -22,11 +22,6 @@ MapsController::MapsController(QObject *parent)
     m_position_source.data();
 }
 
-QString MapsController::searchTerm() const
-{
-    return m_search_term;
-}
-
 double_t MapsController::mapZoomLevel() const
 {
     return m_map_zoom_level;
@@ -114,15 +109,6 @@ void MapsController::setMapCenter(const QGeoCoordinate &new_center)
     emit mapCenterChanged();
 }
 
-void MapsController::setSearchTerm(const QString &new_term)
-{
-    if(m_search_term != new_term)
-    {
-        m_search_term = new_term;
-        emit searchTermChanged();
-    }
-}
-
 void MapsController::centerMapOnDeviceLocation()
 {
     QGeoCoordinate current_device_location = deviceLocation();
@@ -207,8 +193,3 @@ void MapsController::setShowSearchList(const bool & showList)
         emit showSearchListChanged();
     }
 }
-
-// void MapsController::toggleShowSearchList()
-// {
-//     setS
-// }
